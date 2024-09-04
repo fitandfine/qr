@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+        }
+
+        .container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 90%;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input[type="text"], input[type="email"] {
+            background-color: #444;
+            color: #fff;
+        }
+
+        button {
+            background-color: #667eea;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5763d9;
+        }
+
+        #qr-code {
+            margin-top: 20px;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <select id="qr-type">
+            <option value="url">URL</option>
+            <option value="text">Text</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone</option>
+            <option value="sms">SMS</option>
+        </select>
+        <input type="text" id="data-input" placeholder="Enter data here">
+        <button onclick="generateQRCode()">Generate QR Code</button>
+        <div id="qr-code"></div>
+       
+        <button id="download-btn" style="display: none;">Download QR Code</button>
+        <footer>Developed by Anup Chapain on 4th September 2024 for Yubraj Dai<br> emailofanup@gmail.com , shoot me an email!</footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+        let qr;
+        
+        function generateQRCode() {
+            const dataInput = document.getElementById('data-input').value;
+            const qrType = document.getElementById('qr-type').value;
+            let qrValue = dataInput;
+
+            switch (qrType) {
+                case 'email':
+                    qrValue = `mailto:${dataInput}`;
+                    break;
+                case 'phone':
+                    qrValue = `tel:${dataInput}`;
+                    break;
+                case 'sms':
+                    qrValue = `sms:${dataInput}`;
+                    break;
+                case 'text':
+                    qrValue = dataInput;
+                    break;
+                default:
+                    qrValue = dataInput;
+                    break;
+            }
+
+            qr = new QRious({
+                element: document.createElement('canvas'),
+                value: qrValue,
+                size: 200
+            });
+
+            const qrCodeContainer = document.getElementById('qr-code');
+            qrCodeContainer.innerHTML = '';  // Clear any previous QR code
+            qrCodeContainer.appendChild(qr.element);
+
+            document.getElementById('download-btn').style.display = 'inline';
+            document.getElementById('email-btn').style.display = 'inline';
+
+            document.getElementById('download-btn').onclick = function() {
+                const link = document.createElement('a');
+                link.href = qr.element.toDataURL();
+                link.download = 'qrcode.png';
+                link.click();
+            };
+        }
+
+       
+    </script>
+</body>
+</html>
