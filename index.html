@@ -3,130 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator</title>
+    <title>Mr. Snacks Menu</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
-        }
-
-        .container {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
             background-color: #333;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            color: #fff;
             text-align: center;
-            width: 100%;
-            max-width: 500px;
+            overflow-x: hidden;
         }
 
-        input, select, button {
-            padding: 10px;
-            margin: 10px 0;
+        h1 {
+            color: #f39c12;
+            margin: 20px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .menu-section {
+            margin: 20px auto;
             width: 90%;
-            border: none;
+            max-width: 600px;
+            background-color: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-section h2 {
+            color: #e67e22;
+            margin-bottom: 15px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #34495e;
             border-radius: 5px;
+            animation: fadeIn 1s ease-in-out;
         }
 
-        input[type="text"], input[type="email"] {
-            background-color: #444;
+        .menu-item:nth-child(even) {
+            background-color: #1abc9c;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item span {
+            font-weight: bold;
+        }
+
+        .footer {
+            margin: 30px 0;
             color: #fff;
         }
 
-        button {
-            background-color: #667eea;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .qr-code {
+            margin: 20px;
         }
 
-        button:hover {
-            background-color: #5763d9;
+        .footer a {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        #qr-code {
-            margin-top: 20px;
+        .footer a:hover {
+            color: #e67e22;
         }
 
-        footer {
-            margin-top: 20px;
-            font-size: 12px;
+        @media (max-width: 600px) {
+            .menu-item {
+                flex-direction: column;
+                text-align: left;
+            }
+
+            .menu-item span {
+                margin-bottom: 5px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>QR Code Generator</h1>
-        <select id="qr-type">
-            <option value="url">URL</option>
-            <option value="text">Text</option>
-            <option value="email">Email</option>
-            <option value="phone">Phone</option>
-            <option value="sms">SMS</option>
-        </select>
-        <input type="text" id="data-input" placeholder="Enter data here">
-        <button onclick="generateQRCode()">Generate QR Code</button>
-        <div id="qr-code"></div>
-       
-        <button id="download-btn" style="display: none;">Download QR Code</button>
-        <footer>Developed by Anup Chapain on 4th September 2024 for Yubraj Dai<br> emailofanup@gmail.com , shoot me an email!</footer>
+    <h1>Mr. Snacks Menu</h1>
+    <div class="menu-section">
+        <h2>Kebab Wrap</h2>
+        <div class="menu-item"><span>Chicken Kebab</span><span>$13.99</span></div>
+        <div class="menu-item"><span>Lamb Kebab</span><span>$12.99</span></div>
+        <div class="menu-item"><span>Mixed Kebab</span><span>$13.99</span></div>
+        <div class="menu-item"><span>Falafel Wrap</span><span>$12.99</span></div>
+        <div class="menu-item"><span>Veg Paneer Kebab</span><span>$10.99</span></div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
-    <script>
-        let qr;
-        
-        function generateQRCode() {
-            const dataInput = document.getElementById('data-input').value;
-            const qrType = document.getElementById('qr-type').value;
-            let qrValue = dataInput;
+    <div class="menu-section">
+        <h2>Meat on Rice</h2>
+        <div class="menu-item"><span>Chicken on Rice</span><span>$14.99</span></div>
+        <div class="menu-item"><span>Lamb on Rice</span><span>$14.99</span></div>
+        <div class="menu-item"><span>Mixed on Rice</span><span>$14.99</span></div>
+        <div class="menu-item"><span>Falafel on Rice</span><span>$14.99</span></div>
+        <div class="menu-item"><span>Fish on Rice</span><span>$14.99</span></div>
+    </div>
 
-            switch (qrType) {
-                case 'email':
-                    qrValue = `mailto:${dataInput}`;
-                    break;
-                case 'phone':
-                    qrValue = `tel:${dataInput}`;
-                    break;
-                case 'sms':
-                    qrValue = `sms:${dataInput}`;
-                    break;
-                case 'text':
-                    qrValue = dataInput;
-                    break;
-                default:
-                    qrValue = dataInput;
-                    break;
-            }
+    <div class="menu-section">
+        <h2>Sides</h2>
+        <div class="menu-item"><span>Chips Regular</span><span>$4.99</span></div>
+        <div class="menu-item"><span>Loaded Cheese Fries</span><span>$9.99</span></div>
+        <div class="menu-item"><span>Potato Wedges</span><span>$6.99</span></div>
+        <div class="menu-item"><span>Hummus Dip</span><span>$5.99</span></div>
+        <div class="menu-item"><span>Loaded Meat Wedges</span><span>$12.99</span></div>
+    </div>
 
-            qr = new QRious({
-                element: document.createElement('canvas'),
-                value: qrValue,
-                size: 200
-            });
+    <div class="menu-section">
+        <h2>Seafood</h2>
+        <div class="menu-item"><span>Prawn Popcorn with Chips</span><span>$9.99</span></div>
+        <div class="menu-item"><span>Salt & Pepper Squid</span><span>$12.99</span></div>
+        <div class="menu-item"><span>Fish & Chips 2 pcs</span><span>$14.99</span></div>
+    </div>
 
-            const qrCodeContainer = document.getElementById('qr-code');
-            qrCodeContainer.innerHTML = '';  // Clear any previous QR code
-            qrCodeContainer.appendChild(qr.element);
+    <div class="menu-section">
+        <h2>Hunger Busters</h2>
+        <div class="menu-item"><span>Buffalo Wings 8 pcs</span><span>$12.99</span></div>
+        <div class="menu-item"><span>Cheese Bites with Chips</span><span>$11.99</span></div>
+        <div class="menu-item"><span>Chicken Nuggets 8 pcs</span><span>$9.99</span></div>
+    </div>
 
-            document.getElementById('download-btn').style.display = 'inline';
-            document.getElementById('email-btn').style.display = 'inline';
+    <div class="qr-code">
+        <h3>Scan QR for Easy Access</h3>
+        <img src="page_qr.png" alt="QR Code">
+    </div>
 
-            document.getElementById('download-btn').onclick = function() {
-                const link = document.createElement('a');
-                link.href = qr.element.toDataURL();
-                link.download = 'qrcode.png';
-                link.click();
-            };
-        }
-
-       
-    </script>
+    <div class="footer">
+        <p>Developed by <strong>Anup</strong></p>
+        <p>Email: <a href="mailto:pleasedontgetconfused@gmail.com">pleasedontgetconfused@gmail.com</a></p>
+        <p>Instagram: <a href="https://instagram.com/anupcp">@anupcp</a></p>
+    </div>
 </body>
 </html>
