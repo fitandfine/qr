@@ -1,159 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr. Snacks Menu</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            overflow-x: hidden;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Snacks Menu</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            overflow-x: hidden;
+        }
 
-        h1 {
-            color: #f39c12;
-            margin: 20px;
-            text-shadow: 2px 2px 4px #000;
-        }
+        h1 {
+            color: #f39c12;
+            margin: 20px;
+            text-shadow: 2px 2px 4px #000;
+        }
 
-        .menu-section {
-            margin: 20px auto;
-            width: 90%;
-            max-width: 600px;
-            background-color: #2c3e50;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-        }
+        .menu-section {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 600px;
+            background-color: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
 
-        .menu-section h2 {
-            color: #e67e22;
-            margin-bottom: 15px;
-        }
+        .menu-section h2 {
+            color: #e67e22;
+            margin-bottom: 15px;
+        }
 
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #34495e;
-            border-radius: 5px;
-            animation: fadeIn 1s ease-in-out;
-        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #34495e;
+            border-radius: 5px;
+            animation: fadeIn 1s ease-in-out;
+        }
 
-        .menu-item:nth-child(even) {
-            background-color: #1abc9c;
-        }
+        .menu-item:nth-child(even) {
+            background-color: #1abc9c;
+        }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        .menu-item span {
-            font-weight: bold;
-        }
+        .menu-item span {
+            font-weight: bold;
+        }
 
-        .footer {
-            margin: 30px 0;
-            color: #fff;
-        }
+        .footer {
+            margin: 30px 0;
+            color: #fff;
+        }
 
-        .qr-code {
-    display: block;
-    margin: 0 auto; /* Center the QR code */
-    max-width: 200px; /* Adjust maximum width */
-    width: 100%; /* Ensure it is responsive */
-    height: auto; /* Maintain aspect ratio */
-}
+        .qr-code {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center the QR code container */
+            margin: 20px auto; /* Center the QR code container */
+            width: 150px; /* Set a fixed width for the QR code */
+            height: auto; /* Maintain aspect ratio */
+        }
 
+        .qr-code img {
+            max-width: 100%; /* Ensure the QR code image is responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
 
-        .footer a {
-            color: #f39c12;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        .qr-text {
+            margin-bottom: 20px; /* Add margin below the text */
+            font-size: 1.2em; /* Adjust font size for better appearance */
+        }
 
-        .footer a:hover {
-            color: #e67e22;
-        }
-      
+        .footer a {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-        @media (max-width: 600px) {
-            .menu-item {
-                flex-direction: column;
-                text-align: left;
-            }
+        .footer a:hover {
+            color: #e67e22;
+        }
 
-            .menu-item span {
-                margin-bottom: 5px;
-            }
-        }
-    </style>
+        @media (max-width: 600px) {
+            .menu-item {
+                flex-direction: column;
+                text-align: left;
+            }
+
+            .menu-item span {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Mr. Snacks Menu</h1>
-    <div class="menu-section">
-        <h2>Kebab Wrap</h2>
-        <div class="menu-item"><span>Chicken Kebab</span><span>$13.99</span></div>
-        <div class="menu-item"><span>Lamb Kebab</span><span>$12.99</span></div>
-        <div class="menu-item"><span>Mixed Kebab</span><span>$13.99</span></div>
-        <div class="menu-item"><span>Falafel Wrap</span><span>$12.99</span></div>
-        <div class="menu-item"><span>Veg Paneer Kebab</span><span>$10.99</span></div>
-    </div>
+    <h1>Mr. Snacks Menu</h1>
+    <div class="menu-section">
+        <h2>Kebab Wrap</h2>
+        <div class="menu-item"><span>Chicken Kebab</span><span>$13.99</span></div>
+        <div class="menu-item"><span>Lamb Kebab</span><span>$12.99</span></div>
+        <div class="menu-item"><span>Mixed Kebab</span><span>$13.99</span></div>
+        <div class="menu-item"><span>Falafel Wrap</span><span>$12.99</span></div>
+        <div class="menu-item"><span>Veg Paneer Kebab</span><span>$10.99</span></div>
+    </div>
 
-    <div class="menu-section">
-        <h2>Meat on Rice</h2>
-        <div class="menu-item"><span>Chicken on Rice</span><span>$14.99</span></div>
-        <div class="menu-item"><span>Lamb on Rice</span><span>$14.99</span></div>
-        <div class="menu-item"><span>Mixed on Rice</span><span>$14.99</span></div>
-        <div class="menu-item"><span>Falafel on Rice</span><span>$14.99</span></div>
-        <div class="menu-item"><span>Fish on Rice</span><span>$14.99</span></div>
-    </div>
+    <div class="menu-section">
+        <h2>Meat on Rice</h2>
+        <div class="menu-item"><span>Chicken on Rice</span><span>$14.99</span></div>
+        <div class="menu-item"><span>Lamb on Rice</span><span>$14.99</span></div>
+        <div class="menu-item"><span>Mixed on Rice</span><span>$14.99</span></div>
+        <div class="menu-item"><span>Falafel on Rice</span><span>$14.99</span></div>
+        <div class="menu-item"><span>Fish on Rice</span><span>$14.99</span></div>
+    </div>
 
-    <div class="menu-section">
-        <h2>Sides</h2>
-        <div class="menu-item"><span>Chips Regular</span><span>$4.99</span></div>
-        <div class="menu-item"><span>Loaded Cheese Fries</span><span>$9.99</span></div>
-        <div class="menu-item"><span>Potato Wedges</span><span>$6.99</span></div>
-        <div class="menu-item"><span>Hummus Dip</span><span>$5.99</span></div>
-        <div class="menu-item"><span>Loaded Meat Wedges</span><span>$12.99</span></div>
-    </div>
+    <div class="menu-section">
+        <h2>Sides</h2>
+        <div class="menu-item"><span>Chips Regular</span><span>$4.99</span></div>
+        <div class="menu-item"><span>Loaded Cheese Fries</span><span>$9.99</span></div>
+        <div class="menu-item"><span>Potato Wedges</span><span>$6.99</span></div>
+        <div class="menu-item"><span>Hummus Dip</span><span>$5.99</span></div>
+        <div class="menu-item"><span>Loaded Meat Wedges</span><span>$12.99</span></div>
+    </div>
 
-    <div class="menu-section">
-        <h2>Seafood</h2>
-        <div class="menu-item"><span>Prawn Popcorn with Chips</span><span>$9.99</span></div>
-        <div class="menu-item"><span>Salt & Pepper Squid</span><span>$12.99</span></div>
-        <div class="menu-item"><span>Fish & Chips 2 pcs</span><span>$14.99</span></div>
-    </div>
+    <div class="menu-section">
+        <h2>Seafood</h2>
+        <div class="menu-item"><span>Prawn Popcorn with Chips</span><span>$9.99</span></div>
+        <div class="menu-item"><span>Salt & Pepper Squid</span><span>$12.99</span></div>
+        <div class="menu-item"><span>Fish & Chips 2 pcs</span><span>$14.99</span></div>
+    </div>
 
-    <div class="menu-section">
-        <h2>Hunger Busters</h2>
-        <div class="menu-item"><span>Buffalo Wings 8 pcs</span><span>$12.99</span></div>
-        <div class="menu-item"><span>Cheese Bites with Chips</span><span>$11.99</span></div>
-        <div class="menu-item"><span>Chicken Nuggets 8 pcs</span><span>$9.99</span></div>
-    </div>
+    <div class="menu-section">
+        <h2>Hunger Busters</h2>
+        <div class="menu-item"><span>Buffalo Wings 8 pcs</span><span>$12.99</span></div>
+        <div class="menu-item"><span>Cheese Bites with Chips</span><span>$11.99</span></div>
+        <div class="menu-item"><span>Chicken Nuggets 8 pcs</span><span>$9.99</span></div>
+    </div>
 
-    <div class="qr-code">
-        <h3>Scan QR for Easy Access</h3>
-        <img src="page_qr.jpeg" alt="QR Code">
-    </div>
+    <div class="qr-code">
+        <div class="qr-text">Scan QR for Easy Access</div>
+        <img src="page_qr.jpeg" alt="QR Code">
+    </div>
 
-    <div class="footer">
-        <p>Developed by <strong>Anup</strong></p>
-        <p>Email: <a href="mailto:pleasedontgetconfused@gmail.com">pleasedontgetconfused@gmail.com</a></p>
-        <p>Instagram: <a href="https://instagram.com/anupcp">@anupcp</a></p>
-    </div>
+    <div class="footer">
+        <p>Developed by <strong>Anup</strong></p>
+        <p>Email: <a href="mailto:pleasedontgetconfused@gmail.com">pleasedontgetconfused@gmail.com</a></p>
+        <p>Instagram: <a href="https://instagram.com/anupcp">@anupcp</a></p>
+    </div>
 </body>
 </html>
+
