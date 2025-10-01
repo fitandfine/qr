@@ -1,5 +1,6 @@
 # QR Code Generator Web Application
 ## Author: Anup Chapain
+## [Live Page](https://fitandfine.github.io/qr/)
 ## Overview
 
 The QR Code Generator Web Application is a responsive, user-friendly tool that allows users to generate various types of QR codes directly from their web browsers. It supports QR codes for:
