@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator</title>
+  <style>
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f4f4f9; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .container { background: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; width: 100%; max-width: 400px; }
+    h1 { text-align: center; margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; }
+    input, select, button, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; }
+    button { background-color: #007bff; color: white; cursor: pointer; }
+    button:hover { background-color: #0056b3; }
+    .qr-preview { display: flex; justify-content: center; margin-top: 20px; }
+    .qr-preview svg { width: 200px; height: 200px; }
+    footer { text-align: center; margin-top: 20px; font-size: 12px; color: #777; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>QR Code Generator</h1>
+    <label for="qr-type">Select QR Type</label>
+    <select id="qr-type">
+      <option value="url">URL/Text</option>
+      <option value="wifi">WiFi</option>
+      <option value="whatsapp">WhatsApp</option>
+      <option value="call">Call</option>
+      <option value="sms">SMS</option>
+      <option value="email">Email</option>
+    </select>
+
+    <div id="url-fields">
+      <label for="url-input">Enter URL or Text</label>
+      <input type="text" id="url-input" placeholder="https://example.com or Any text">
+    </div>
+
+    <div id="wifi-fields" style="display: none;">
+      <label for="ssid">SSID</label>
+      <input type="text" id="ssid" placeholder="Network Name">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Network Password">
+      <label for="encryption">Encryption</label>
+      <select id="encryption">
+        <option value="WPA">WPA</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">None</option>
+      </select>
+    </div>
+
+    <div id="whatsapp-fields" style="display: none;">
+      <label for="whatsapp-number">Phone Number</label>
+      <input type="text" id="whatsapp-number" placeholder="e.g., +1234567890">
+      <label for="whatsapp-message">Message</label>
+      <textarea id="whatsapp-message" placeholder="Hello!"></textarea>
+    </div>
+
+    <div id="call-fields" style="display: none;">
+      <label for="call-number">Phone Number</label>
+      <input type="text" id="call-number" placeholder="e.g., +1234567890">
+    </div>
+
+    <div id="sms-fields" style="display: none;">
+      <label for="sms-number">Phone Number</label>
+      <input type="text" id="sms-number" placeholder="e.g., +1234567890">
+      <label for="sms-message">Message</label>
+      <textarea id="sms-message" placeholder="Hi there"></textarea>
+    </div>
+
+    <div id="email-fields" style="display: none;">
+      <label for="email-to">Recipient Email</label>
+      <input type="email" id="email-to" placeholder="example@domain.com">
+      <label for="email-subject">Subject</label>
+      <input type="text" id="email-subject" placeholder="Subject">
+      <label for="email-body">Body</label>
+      <textarea id="email-body" placeholder="Message body"></textarea>
+    </div>
+
+    <button id="generate-btn">Generate QR Code</button>
+
+    <div class="qr-preview" id="qr-preview"></div>
+
+    <footer>
+      <p>Created with ❤️ by <a href="https://fitandfine.github.io/anup/">Anup Chapain</a></p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
+  <script>
+    const qrTypeSelect = document.getElementById('qr-type');
+    const generateBtn = document.getElementById('generate-btn');
+    const qrPreview = document.getElementById('qr-preview');
+    let qr;
+
+    // Show relevant fields based on selected QR type
+    qrTypeSelect.addEventListener('change', () => {
+      const selectedType = qrTypeSelect.value;
+      document.querySelectorAll('[id$="-fields"]').forEach(div => div.style.display = 'none');
+      document.getElementById(`${selectedType}-fields`).style.display = 'block';
+    });
+
+    // Generate QR Code
+    generateBtn.addEventListener('click', () => {
+      const selectedType = qrTypeSelect.value;
+      let data;
+
+      switch (selectedType) {
+        case 'url':
+          data = document.getElementById('url-input').value;
+          break;
+        case 'wifi':
+          const ssid = document.getElementById('ssid').value;
+          const password = document.getElementById('password').value;
+          const encryption = document.getElementById('encryption').value;
+          data = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
+          break;
+        case 'whatsapp':
+          const whatsappNumber = document.getElementById('whatsapp-number').value;
+          const whatsappMessage = encodeURIComponent(document.getElementById('whatsapp-message').value);
+          data = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+          break;
+        case 'call':
+          const callNumber = document.getElementById('call-number').value;
+          data = `tel:${callNumber}`;
+          break;
+        case 'sms':
+          const smsNumber = document.getElementById('sms-number').value;
+          const smsMessage = encodeURIComponent(document.getElementById('sms-message').value);
+          data = `SMSTO:${smsNumber}:${smsMessage}`;
+          break;
+        case 'email':
+          const emailTo = document.getElementById('email-to').value;
+          const emailSubject = encodeURIComponent(document.getElementById('email-subject').value);
+          const emailBody = encodeURIComponent(document.getElementById('email-body').value);
+          data = `mailto:${emailTo}?subject=${emailSubject}&body=${emailBody}`;
+          break;
+        default:
+          alert('Please select a QR type.');
+          return;
+      }
+
+      if (!data) {
+        alert('Please fill in the required fields.');
+        return;
+      }
+
+      // Initialize or update QR code
+      if (!qr) {
+        qr = new QRCodeStyling({
+          width: 200,
+          height: 200,
+          data: data,
+          dotsOptions: {
+            color: "#000000",
+            type: "square"
+          },
+          backgroundOptions: {
+            color: "#ffffff"
+          }
+        });
+        qr.append(qrPreview);
+      } else {
+        qr.update({
+          data: data
+        });
+      }
+    });
+  </script>
+</body>
+</html>
